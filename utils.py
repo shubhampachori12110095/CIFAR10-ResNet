@@ -50,7 +50,7 @@ def get_data_loaders():
     val_sampler = SubsetRandomSampler(val_i)
 
     data_loaders = {d_set: torch.utils.data.DataLoader(
-        dataset[d_set], batch_size=4, sampler=train_sampler if d_set == 'train' else val_sampler, num_workers=4)
+        dataset[d_set], batch_size=10, sampler=train_sampler if d_set == 'train' else val_sampler, num_workers=4)
         for d_set in ['train', 'val']}
 
     test_set = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform['test'])
