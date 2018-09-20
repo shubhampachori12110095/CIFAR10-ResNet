@@ -1,3 +1,5 @@
 # CIFAR10-ResNet
 
-Using ResNet for CIFAR10 Pytorch
+Using PyTorch w/ CUDA to classify CIFAR-10
+
+Goal is to get 95%+ accuracy
