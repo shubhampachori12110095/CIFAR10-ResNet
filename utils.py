@@ -10,7 +10,6 @@ def get_data_loaders():
     transform = {
         'train': transforms.Compose([
 
-            transforms.ColorJitter(brightness=0.2, saturation=0.5),
             transforms.RandomCrop(32, padding=4),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
