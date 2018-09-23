@@ -3,6 +3,7 @@ import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data.sampler import SubsetRandomSampler
 import numpy as np
+import os
 
 
 def get_data_loaders():
@@ -61,7 +62,7 @@ def get_data_loaders():
     return data_loaders, test_loader
 
 
-def load_checkpoint(model, optimizer, filename='./trained-models/net.pth'):
+def load_checkpoint(model, optimizer, scheduler, filename):
 
     if os.path.isfile(filename):
 
@@ -69,7 +70,8 @@ def load_checkpoint(model, optimizer, filename='./trained-models/net.pth'):
 
         model.load_state_dict(checkpoint['state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer'])
-
+        scheduler.load_state_dict(checkpoint['scheduler'])
+        
         return model, optimizer
 
     else:
