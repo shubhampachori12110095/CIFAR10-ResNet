@@ -60,3 +60,18 @@ def get_data_loaders():
 
     return data_loaders, test_loader
 
+
+def load_checkpoint(model, optimizer, filename='./trained-models/net.pth'):
+
+    if os.path.isfile(filename):
+
+        checkpoint = torch.load(filename)
+
+        model.load_state_dict(checkpoint['state_dict'])
+        optimizer.load_state_dict(checkpoint['optimizer'])
+
+        return model, optimizer
+
+    else:
+
+        print('File Not Found')
