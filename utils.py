@@ -71,8 +71,9 @@ def load_checkpoint(model, optimizer, scheduler, filename):
         model.load_state_dict(checkpoint['state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer'])
         scheduler.load_state_dict(checkpoint['scheduler'])
+        epoch = checkpoint['epoch']
         
-        return model, optimizer
+        return model, optimizer, 
 
     else:
 
