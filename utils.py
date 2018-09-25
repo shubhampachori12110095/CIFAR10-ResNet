@@ -73,7 +73,7 @@ def load_checkpoint(model, optimizer, scheduler, filename):
         scheduler.load_state_dict(checkpoint['scheduler'])
         epoch = checkpoint['epoch']
         
-        return model, optimizer, 
+        return epoch
 
     else:
 
