@@ -6,7 +6,7 @@ import numpy as np
 import os
 
 
-def get_data_loaders():
+def get_data_loaders(val=True):
 
     transform = {
         'train': transforms.Compose([
@@ -37,23 +37,30 @@ def get_data_loaders():
         root='./data', train=True, download=True, transform=transform[data_set])
         for data_set in ['train', 'val']}
 
-    val_set_size = 0.2
+    if val:
 
-    split = int(np.floor(val_set_size * len(data_set['train'])))
+        val_set_size = 0.2
 
-    indices = list(range(len(data_set['train'])))
+        split = int(np.floor(val_set_size * len(data_set['train'])))
 
-    np.random.seed()  # add seed to set random
-    np.random.shuffle(indices)
+        indices = list(range(len(data_set['train'])))
 
-    train_i, val_i = indices[split:], indices[:split]
+        np.random.seed()  # add seed to set random
+        np.random.shuffle(indices)
 
-    train_sampler = SubsetRandomSampler(train_i)
-    val_sampler = SubsetRandomSampler(val_i)
+        train_i, val_i = indices[split:], indices[:split]
 
-    data_loaders = {d_set: torch.utils.data.DataLoader(
-        data_set[d_set], batch_size=10, sampler=train_sampler if d_set == 'train' else val_sampler, num_workers=4)
-        for d_set in ['train', 'val']}
+        train_sampler = SubsetRandomSampler(train_i)
+        val_sampler = SubsetRandomSampler(val_i)
+
+        data_loaders = {d_set: torch.utils.data.DataLoader(
+            data_set[d_set], batch_size=10, sampler=train_sampler if d_set == 'train' else val_sampler, num_workers=4)
+            for d_set in ['train', 'val']}
+    else:
+
+        data_loaders = {'train': torch.utils.data.DataLoader(
+            data_set['train'], batch_size=10, num_workers=4, shuffle=True
+        )}
 
     test_set = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform['test'])
 
